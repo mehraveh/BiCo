@@ -1,0 +1,103 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ثبت‌نام</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.rtl.min.css" rel="stylesheet" />
+
+  <style>
+    :root{
+      --bg:#f7f8fc; --card:#fff; --border:#e8ecf4;
+      --shadow:0 10px 30px rgba(0,0,0,.08);
+    }
+    body{ background:var(--bg); font-family:"Vazirmatn",sans-serif; }
+    .card{ border:1px solid var(--border); border-radius:16px; box-shadow:var(--shadow); }
+    .brand{ font-weight:900; letter-spacing:-.3px; }
+    .muted{ color:#6b7280; }
+
+    /* make all django widgets look consistent */
+    input, select, textarea{ width:100%; text-align:right; }
+    .form-label{ display:flex; align-items:center; justify-content:space-between; text-align:right; }
+    .optional-badge{
+      font-size:12px; font-weight:700; color:#6b7280;
+      background:#f1f5f9; border:1px solid #e2e8f0;
+      padding:2px 10px; border-radius:999px;
+    }
+  </style>
+</head>
+
+<body>
+  <main class="container py-5">
+    <div class="row justify-content-center">
+      <div class="col-12 col-md-9 col-lg-7 col-xl-6">
+
+        <div class="card p-4 p-md-5">
+          <div class="text-center mb-4">
+            <div class="brand h3 mb-1">ساخت حساب کاربری</div>
+            <div class="muted">لطفاً اطلاعات زیر را وارد کنید</div>
+          </div>
+
+          {% if form.non_field_errors %}
+            <div class="alert alert-danger">
+              {% for err in form.non_field_errors %}{{ err }}<br>{% endfor %}
+            </div>
+          {% endif %}
+
+          <form method="post" novalidate>
+            {% csrf_token %}
+
+            {% for field in form %}
+              <div class="mb-3">
+                <label class="form-label" for="{{ field.id_for_label }}">
+                  <span>{{ field.label }}</span>
+                  {% if not field.field.required %}
+                    <span class="optional-badge">اختیاری</span>
+                  {% endif %}
+                </label>
+
+                {# Add bootstrap classes cleanly (no need to edit forms.py) #}
+                {% if field.field.widget.input_type == "select" %}
+                  {{ field.as_widget|safe }}
+                {% else %}
+                  {{ field.as_widget|safe }}
+                {% endif %}
+
+                {% if field.help_text and field.field.required %}
+                  <div class="form-text">{{ field.help_text }}</div>
+                {% endif %}
+
+                {% for error in field.errors %}
+                  <div class="text-danger small mt-1">{{ error }}</div>
+                {% endfor %}
+              </div>
+            {% endfor %}
+
+            <div class="d-grid mt-4">
+              <button type="submit" class="btn btn-primary btn-lg">ثبت‌نام</button>
+            </div>
+          </form>
+
+          <div class="text-center mt-4">
+            <span class="muted">قبلاً ثبت‌نام کرده‌اید؟</span>
+            <a href="{% url 'login' %}" class="fw-bold text-decoration-none">ورود</a>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    // Add Bootstrap classes to Django-rendered inputs/selects/textareas (fast + clean)
+    document.querySelectorAll("input, select, textarea").forEach(el => {
+      if (el.type === "checkbox" || el.type === "radio") return;
+      if (el.tagName.toLowerCase() === "select") el.classList.add("form-select", "form-select-lg");
+      else el.classList.add("form-control", "form-control-lg");
+    });
+  </script>
+</body>
+</html>

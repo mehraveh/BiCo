@@ -1,0 +1,92 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <title>انتخاب آزمون</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root{
+      --bg:#f7f8fc; --text:#253046; --muted:#6e7a8a;
+      --primary:#9dbafc; --primary-2:#7ea4fa; --accent:#74d1ee;
+      --card:#fff; --border:#e8ecf4; --radius:14px;
+      --shadow:0 8px 24px rgba(0,0,0,.06); --shadow-sm:0 3px 12px rgba(0,0,0,.05);
+    }
+    *{box-sizing:border-box}
+    body{margin:0; background:var(--bg); color:var(--text); font-family:'Vazirmatn',sans-serif;}
+    .page{max-width:1000px; margin:0 auto; padding:clamp(16px,4vw,40px);}
+
+    .header{text-align:center; margin-bottom:clamp(20px,4vw,32px);}
+    .title{font-size:clamp(22px,4.8vw,34px); font-weight:800; margin:0 0 6px;}
+
+    .grid-center{
+      display:flex; flex-wrap:wrap; gap:20px;
+      justify-content:center; align-items:stretch;
+      margin-bottom:30px;
+    }
+
+    .btn-card{
+      flex:0 1 260px;
+      display:flex; align-items:center; justify-content:center;
+      text-decoration:none; text-align:center;
+      background:var(--card); color:var(--text);
+      border:1px solid var(--border); border-radius:var(--radius);
+      padding:clamp(18px,3vw,24px); min-height:clamp(60px,12vw,80px);
+      font-size:clamp(15px,3.6vw,18px); font-weight:700;
+      box-shadow:var(--shadow-sm);
+      transition:transform .08s ease, box-shadow .25s ease, border-color .2s ease, background-color .2s ease;
+      cursor:pointer;
+    }
+    .btn-card:hover{transform:translateY(-2px); box-shadow:var(--shadow); border-color:#dfe5f2;}
+
+    .btn-primary{
+      background:linear-gradient(180deg,var(--primary),var(--primary-2));
+      color:#0f223a; border:1px solid rgba(126,164,250,.35);
+    }
+    .btn-primary:hover{background:linear-gradient(180deg,#a8c2fd,#8eb2fb);}
+
+    .header-hero { background:#f7f8fc; padding:0; }
+    .hero-logos { display:flex; align-items:center; justify-content:space-between; gap:12px; }
+    .crescent-wrap { position:relative; flex:1 1 40%; min-width:250px; }
+    .crescent-logo { position:absolute; width:120px; top:40%; transform:translateY(-50%); }
+    .crescent-logo.logo-left { left:15%; }
+    .crescent-logo.logo-right { right:15%; }
+  </style>
+</head>
+<body>
+
+  <div class="header-hero mb-4">
+    <div class="hero-logos">
+      <div class="crescent-wrap">
+        <img src="{% static 'img/crescent_header.png' %}" alt="هلال" style="width:100%; height:auto;">
+        <img class="crescent-logo logo-left"  src="{% static 'img/cli.ico' %}"  alt="لوگو چپ">
+        <img class="crescent-logo logo-right" src="{% static 'img/cli2.ico' %}" alt="لوگو راست">
+      </div>
+    </div>
+  </div>
+
+  <main class="page">
+    <header class="header">
+      <h1 class="title">لطفاً آزمون مورد نظر خود را انتخاب کنید</h1>
+    </header>
+
+    <!-- 3 rectangles -->
+    <section class="grid-center">
+      <!-- Questionnaires -->
+      <a class="btn-card btn-primary" href="{% url 'questionnaires_home' %}">
+        پرسش‌نامه‌ها
+      </a>
+
+      <a class="btn-card btn-primary" href="{% url 'talent_start' %}">
+        استعدادیابی
+      </a>
+      <!-- Board games -->
+      <a class="btn-card btn-primary" href="/">
+        بردگیم‌ها
+      </a>
+    </section>
+  </main>
+
+</body>
+</html>

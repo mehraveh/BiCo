@@ -1,0 +1,59 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>شروع استعدادیابی</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.rtl.min.css" rel="stylesheet" />
+
+  <style>
+    :root{ --bg:#f7f8fc; --card:#fff; --border:#e8ecf4; --shadow:0 10px 30px rgba(0,0,0,.08); }
+    body{ background:var(--bg); font-family:"Vazirmatn",sans-serif; }
+    .card{ border:1px solid var(--border); border-radius:16px; box-shadow:var(--shadow); }
+    .muted{ color:#6b7280; }
+    .brand{ font-weight:800; letter-spacing:-.3px; }
+  </style>
+</head>
+
+<body>
+<main class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-12 col-lg-7">
+
+      <div class="card p-4 p-md-5">
+        <div class="text-center mb-3">
+          <div class="brand h3 mb-1">استعدادیابی</div>
+          <div class="muted">کد ملی کلاینت را وارد کنید تا بررسی کنیم قبلاً ثبت شده یا نه.</div>
+        </div>
+
+        <form method="post" novalidate>
+          {% csrf_token %}
+
+          <div class="mb-3">
+            {{ form.national_code.label_tag }}
+            {{ form.national_code }}
+            {% for error in form.national_code.errors %}
+              <div class="text-danger small mt-1">{{ error }}</div>
+            {% endfor %}
+          </div>
+
+          <div class="d-grid mt-3">
+            <button type="submit" class="btn btn-primary btn-lg">
+              بررسی و ادامه
+            </button>
+          </div>
+
+          <div class="text-center mt-3">
+            <span class="muted">اگر کلاینت ثبت نشده باشد، به صفحه ثبت اطلاعات هدایت می‌شوید.</span>
+          </div>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</main>
+</body>
+</html>

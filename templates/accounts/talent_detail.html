@@ -1,0 +1,79 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>جزئیات استعدادیابی</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.rtl.min.css" rel="stylesheet" />
+
+  <style>
+    :root{ --bg:#f7f8fc; --card:#fff; --border:#e8ecf4; --shadow:0 10px 30px rgba(0,0,0,.08); }
+    body{ background:var(--bg); font-family:"Vazirmatn",sans-serif; }
+    .card{ border:1px solid var(--border); border-radius:16px; box-shadow:var(--shadow); }
+    .muted{ color:#6b7280; }
+    .brand{ font-weight:800; letter-spacing:-.3px; }
+    .kv{display:flex; justify-content:space-between; gap:12px; padding:10px 0; border-bottom:1px dashed #e5e7eb;}
+    .kv:last-child{border-bottom:0}
+    .k{color:#6b7280}
+    .v{font-weight:800}
+  </style>
+</head>
+
+<body>
+<main class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-12 col-lg-8">
+
+      <div class="card p-4 p-md-5">
+        <div class="mb-4">
+          <div class="brand h3 mb-1">نتیجه استعدادیابی</div>
+          <div class="muted">کلاینت: <strong>{{ ta.client.full_name }}</strong> — کد ملی: <strong>{{ ta.client.national_code }}</strong></div>
+        </div>
+
+        <div class="kv"><div class="k">تاریخ ارزیابی</div><div class="v">{{ ta.assessment_date }}</div></div>
+        <div class="kv"><div class="k">ثبت‌کننده</div><div class="v">{{ ta.created_by.get_role_display }}</div></div>
+
+        <hr class="my-4">
+
+        <div class="h5 fw-bold mb-2">نمرات مربی</div>
+        <div class="kv"><div class="k">حرکتی</div><div class="v">{{ ta.coach_motor }}</div></div>
+        <div class="kv"><div class="k">شناختی</div><div class="v">{{ ta.coach_cognitive }}</div></div>
+        <div class="kv"><div class="k">اجتماعی</div><div class="v">{{ ta.coach_social }}</div></div>
+        <div class="kv"><div class="k">هیجانی</div><div class="v">{{ ta.coach_emotional }}</div></div>
+
+        <hr class="my-4">
+
+        <div class="h5 fw-bold mb-2">نمرات والد (ورودی دوم)</div>
+        <div class="kv"><div class="k">حرکتی</div><div class="v">{{ ta.parent_motor }}</div></div>
+        <div class="kv"><div class="k">شناختی</div><div class="v">{{ ta.parent_cognitive }}</div></div>
+        <div class="kv"><div class="k">اجتماعی</div><div class="v">{{ ta.parent_social }}</div></div>
+        <div class="kv"><div class="k">هیجانی</div><div class="v">{{ ta.parent_emotional }}</div></div>
+
+        <hr class="my-4">
+
+        <div class="h5 fw-bold mb-2">وضعیت نسبت به همسالان</div>
+        <div class="kv"><div class="k">حرکتی</div><div class="v">{{ ta.get_motor_peer_display }}</div></div>
+        <div class="kv"><div class="k">شناختی</div><div class="v">{{ ta.get_cognitive_peer_display }}</div></div>
+        <div class="kv"><div class="k">اجتماعی</div><div class="v">{{ ta.get_social_peer_display }}</div></div>
+        <div class="kv"><div class="k">هیجانی</div><div class="v">{{ ta.get_emotional_peer_display }}</div></div>
+
+        {% if ta.notes %}
+          <hr class="my-4">
+          <div class="h5 fw-bold mb-2">توضیحات</div>
+          <div class="muted">{{ ta.notes|linebreaksbr }}</div>
+        {% endif %}
+
+        <div class="d-flex gap-2 mt-4">
+          <a class="btn btn-outline-secondary" href="{% url 'talent_start' %}">استعدادیابی جدید</a>
+          <a class="btn btn-primary" href="{% url 'talent_new' ta.client.id %}">ثبت ارزیابی دیگر برای همین کلاینت</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</main>
+</body>
+</html>

@@ -1,0 +1,53 @@
+# ---- Python / Django ----
+__pycache__/
+*.py[cod]
+*.pyd
+*.pyo
+*.pkl
+*.log
+*.pot
+*.mo
+
+# Django
+*.sqlite3
+db.sqlite3
+media/
+staticfiles/
+
+# Migrations cache / local state
+*.egg-info/
+.eggs/
+dist/
+build/
+
+# ---- Virtualenv ----
+venv/
+.venv/
+env/
+ENV/
+
+# ---- OS / Editor ----
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# ---- Jupyter ----
+.ipynb_checkpoints/
+
+# ---- dotenv / secrets ----
+.env
+.env.*
+*.pem
+*.key
+
+# ---- Test / coverage ----
+.coverage
+htmlcov/
+.pytest_cache/
+
+# ---- Node (if you ever add frontend build) ----
+node_modules/
+
+# ---- Local Postgres ----
+*.pid
